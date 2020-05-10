@@ -132,7 +132,6 @@ typedef unsigned __int128 uint128_t;
         if (!unlikely(expr)) {                                                 \
             fprintf(stderr, "%s:%d (%s) assertion failed: \"%s\"\n", __FILE__, \
                     __LINE__, __PRETTY_FUNCTION__, #expr);                     \
-            abort();                                                           \
         }                                                                      \
     } while (0)
 #else
