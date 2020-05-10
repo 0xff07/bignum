@@ -6,3 +6,4 @@ fibonacci
 .devcontainer
 core*
 tags
+cscope.out
