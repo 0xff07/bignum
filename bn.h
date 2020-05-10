@@ -52,6 +52,8 @@ void bn_fprint(const bn *n, unsigned int base, FILE *fp);
 #define bn_print_dec(n) bn_print((n), 10)
 #define bn_print_hex(n) bn_print((n), 16)
 
+void bn_snprint(const bn *n, unsigned int base, char *dst, size_t max_len);
+
 #ifdef __cplusplus
 }
 #endif

@@ -175,6 +175,8 @@ void apm_fprint(const apm_digit *u, apm_size size, unsigned int radix, FILE *fp)
 #define apm_print_dec(u, size) apm_fprint_dec((u), (size), stdout)
 #define apm_print_hex(u, size) apm_fprint_hex((u), (size), stdout)
 
+void apm_snprint(const apm_digit *u, apm_size size, unsigned int radix, char *dst, size_t max_len);
+
 #define APM_NORMALIZE(u, usize)         \
     while ((usize) && !(u)[(usize) -1]) \
         --(usize);

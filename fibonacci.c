@@ -68,6 +68,12 @@ int main(int argc, char *argv[])
     fibonacci(n, fib);
     printf("Fib(%u)=", n), bn_print_dec(fib), printf("\n");
 
+#define BUFLEN 4096
+    char buf[BUFLEN];
+    printf("Fib(%u)=", n);
+    bn_snprint(fib, 10, buf, BUFLEN);
+    printf("%s\n", buf);
+ 
     bn_free(fib);
 
     return 0;

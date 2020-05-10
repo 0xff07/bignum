@@ -280,3 +280,27 @@ void bn_fprint(const bn *n, unsigned int base, FILE *fp)
         fputc('-', fp);
     apm_fprint(n->digits, n->size, base, fp);
 }
+
+void bn_snprint(const bn *n, unsigned int base, char *dst, size_t max_len)
+{
+    if (max_len == 0)
+        return;
+    if (max_len == 1) {
+        dst[0] = '\0';
+        return;
+    }
+
+    if (n->size == 0) {
+        dst[0] = '0';
+        dst[1] = '\0';
+        return;
+    }
+
+    if (n->sign) {
+        dst[0] = '-';
+        dst++;
+        max_len--;
+    }
+
+    apm_snprint(n->digits, n->size, base, dst, max_len);
+}
