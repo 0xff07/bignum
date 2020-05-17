@@ -1,6 +1,6 @@
 CFLAGS = -Wall -O2
 
-all: fibonacci
+all: main
 
 # Control the build verbosity
 ifeq ("$(VERBOSE)","1")
@@ -12,15 +12,15 @@ else
 endif
 
 OBJS := \
-	fibonacci.o \
 	bignum.o \
 	apm.o \
 	sqr.o \
 	mul.o \
-	format.o
+	format.o \
+    main.o
 deps := $(OBJS:%.o=.%.o.d)
 
-fibonacci: $(OBJS)
+main: $(OBJS)
 	$(VECHO) "  LD\t$@\n"
 	$(Q)$(CC) $(LDFLAGS) -o $@ $^
 
@@ -31,6 +31,6 @@ fibonacci: $(OBJS)
 
 clean:
 	rm -f $(OBJS) $(deps)
-	$(RM) fibonacci
+	$(RM) main
 
 -include $(deps)
