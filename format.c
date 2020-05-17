@@ -145,10 +145,10 @@ static size_t apm_string_size(apm_size size, unsigned int radix)
     unsigned __int128 res = (radix_sizes[radix] * (size * APM_DIGIT_SIZE)) + 2;
 
     /* get 64 or 32 significant bits from 128 bit result */
-    unsigned long shmnt = __builtin_clzl(64 - (unsigned long)(res >> 64));
+    unsigned long shmnt = 64 - __builtin_clzl((unsigned long)(res >> 64));
     res >>= shmnt;
 #if APM_DIGIT_SIZE == 4
-    unsigned long shmnt = __builtin_clzl(64 - (unsigned long)(res >> 32));
+    unsigned long shmnt = 64 - __builtin_clzl((unsigned long)(res >> 32));
     res >>= shmnt;
 #endif
     
