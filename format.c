@@ -143,15 +143,8 @@ static size_t apm_string_size(apm_size size, unsigned int radix)
     }
 
     /* round up to second next largest integer */
-    unsigned __int128 res = (radix_sizes[radix] * (size * APM_DIGIT_SIZE)) + 2;
-
-    /* get 64 or 32 significant bits from 128 bit result */
-    unsigned long shmnt = 64 - __builtin_clzl((unsigned long)(res >> 64));
-    res >>= shmnt;
-#if APM_DIGIT_SIZE == 4
-    unsigned long shmnt = 64 - __builtin_clzl((unsigned long)(res >> 32));
-    res >>= shmnt;
-#endif
+    unsigned __int128 res = (radix_sizes[radix] * (size * APM_DIGIT_SIZE));
+    res >>= 26;
     
     return (size_t)res;
 }
@@ -304,10 +297,25 @@ void apm_snprint(const apm_digit *u, apm_size size, unsigned int radix, char *ds
 
     APM_NORMALIZE(u, size);
     const size_t string_size = apm_string_size(size, radix) + 1;
+
     char *str = MALLOC(string_size);
+    if (!str) {
+        printk(KERN_ALERT "Failed to allocate %ld bytes memory in apm_snprit.\n", string_size);
+        goto failed_malloc;
+    }
+
     char *p = apm_get_str(u, size, radix, str);
-    if (!p)
-        return;
+    if (!p) {
+        printk(KERN_ALERT "Failed to get string.\n");
+        goto failed_str;
+    }
+
     snprintf(dst, max_len, "%s", p);
     FREE(str);
+    return;
+
+failed_str:
+    FREE(str);
+failed_malloc:
+    return;
 }
