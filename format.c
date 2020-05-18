@@ -306,7 +306,8 @@ void apm_snprint(const apm_digit *u, apm_size size, unsigned int radix, char *ds
     const size_t string_size = apm_string_size(size, radix) + 1;
     char *str = MALLOC(string_size);
     char *p = apm_get_str(u, size, radix, str);
-    ASSERT(p != NULL);
+    if (!p)
+        return;
     snprintf(dst, max_len, "%s", p);
     FREE(str);
 }
