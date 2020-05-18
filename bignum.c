@@ -1,5 +1,3 @@
-#include <stdlib.h>
-
 #include "bn.h"
 
 #define BN_MIN_ALLOC(n, s)                                               \
@@ -266,19 +264,6 @@ void bn_lshift(const bn *p, unsigned int bits, bn *q)
         BN_SIZE(q, q->size + 1);
         q->digits[q->size - 1] = cy;
     }
-}
-
-void bn_fprint(const bn *n, unsigned int base, FILE *fp)
-{
-    if (!fp)
-        fp = stdout;
-    if (n->size == 0) {
-        fputc('0', fp);
-        return;
-    }
-    if (n->sign)
-        fputc('-', fp);
-    apm_fprint(n->digits, n->size, base, fp);
 }
 
 void bn_snprint(const bn *n, unsigned int base, char *dst, size_t max_len)

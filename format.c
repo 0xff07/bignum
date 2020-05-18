@@ -294,22 +294,6 @@ static char *apm_get_str(const apm_digit *u,
     return out;
 }
 
-void apm_fprint(const apm_digit *u, apm_size size, unsigned int radix, FILE *fp)
-{
-    ASSERT(u != NULL);
-
-    ASSERT(radix >= 2);
-    ASSERT(radix <= 36);
-
-    APM_NORMALIZE(u, size);
-    const size_t string_size = apm_string_size(size, radix) + 1;
-    char *str = MALLOC(string_size);
-    char *p = apm_get_str(u, size, radix, str);
-    ASSERT(p != NULL);
-    fputs(p, fp);
-    FREE(str);
-}
-
 void apm_snprint(const apm_digit *u, apm_size size, unsigned int radix, char *dst, size_t max_len)
 {
     ASSERT(u != NULL);

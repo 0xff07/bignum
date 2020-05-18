@@ -3,8 +3,6 @@
 #ifndef _BIGNUM_H_
 #define _BIGNUM_H_
 
-#include <stdio.h>
-
 #include "apm.h"
 
 #ifdef __cplusplus
@@ -46,11 +44,6 @@ void bn_mul(const bn *a, const bn *b, bn *p);
 
 /* B = A * A */
 void bn_sqr(const bn *a, bn *b);
-
-void bn_fprint(const bn *n, unsigned int base, FILE *fp);
-#define bn_print(n, base) bn_fprint((n), (base), stdout)
-#define bn_print_dec(n) bn_print((n), 10)
-#define bn_print_hex(n) bn_print((n), 16)
 
 void bn_snprint(const bn *n, unsigned int base, char *dst, size_t max_len);
 

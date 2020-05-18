@@ -4,7 +4,6 @@
 #define _APM_H_
 
 #include <stdint.h>
-#include <stdio.h>  /* for FILE*, stdout */
 #include <string.h> /* for memmove */
 
 #include "apm_internal.h"
@@ -168,13 +167,7 @@ apm_digit apm_lshift(const apm_digit *u,
 apm_digit apm_lshifti(apm_digit *u, apm_size size, unsigned int shift);
 apm_digit apm_rshifti(apm_digit *u, apm_size size, unsigned int shift);
 
-/* Print u[size] in a radix on [2,36] to the stream fp. No newline is output. */
-void apm_fprint(const apm_digit *u, apm_size size, unsigned int radix, FILE *fp);
-/* Convenience macros for bases 2, 10, and 16, with fp = stdout. */
-#define apm_print(u, size, b) apm_fprint((u), (size), (b), stdout)
-#define apm_print_dec(u, size) apm_fprint_dec((u), (size), stdout)
-#define apm_print_hex(u, size) apm_fprint_hex((u), (size), stdout)
-
+/* Print u[size] in a radix on [2,36] to dst, at most max_len bytes  */
 void apm_snprint(const apm_digit *u, apm_size size, unsigned int radix, char *dst, size_t max_len);
 
 #define APM_NORMALIZE(u, usize)         \
