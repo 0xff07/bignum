@@ -157,18 +157,6 @@ apm_digit apm_subi_n(apm_digit *u, const apm_digit *v, apm_size size)
     return cy;
 }
 
-apm_digit apm_subi(apm_digit *u,
-                   apm_size usize,
-                   const apm_digit *v,
-                   apm_size vsize)
-{
-    ASSERT(u != NULL);
-    ASSERT(v != NULL);
-    ASSERT(usize >= vsize);
-
-    return apm_subi_n(u, v, vsize) ? apm_dec(u + vsize, usize - vsize) : 0;
-}
-
 apm_digit apm_dmul(const apm_digit *u, apm_size size, apm_digit v, apm_digit *w)
 {
     if (v <= 1) {
