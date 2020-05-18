@@ -9,6 +9,7 @@
 extern "C" {
 #endif
 
+
 typedef struct {
     apm_digit *digits; /* Digits of number. */
     apm_size size;     /* Length of number. */

@@ -1,8 +1,9 @@
-#include <ctype.h>
-#include <stdio.h>
+#include <linux/ctype.h>
+#include <linux/kernel.h>
 
 #include "apm.h"
 
+#define UINT64_C(c) c##ULL
 /* radix_sizes[B] = number of radix-B digits needed to represent an 8-bit
  * unsigned integer; B on [2, 36] */
 static const unsigned __int128 radix_sizes[37] = {

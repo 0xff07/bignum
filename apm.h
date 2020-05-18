@@ -3,13 +3,19 @@
 #ifndef _APM_H_
 #define _APM_H_
 
-#include <stdint.h>
-#include <string.h> /* for memmove */
+#include <linux/string.h> /* for memmove */
 
 #include "apm_internal.h"
 
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+#ifndef UINT32_MAX
+    #define UINT32_MAX (~0U)
+#endif
+#ifndef UINT64_MAX
+    #define UINT64_MAX (~0LLU)
 #endif
 
 #if APM_DIGIT_SIZE == 4
@@ -27,7 +33,6 @@ typedef uint64_t apm_digit;
 #define APM_DIGIT_BITS 64U
 #define APM_DIGIT_HSHIFT 32U
 #define APM_DIGIT_MAX UINT64_MAX
-
 #else
 #error "APM_DIGIT_SIZE must be 4 or 8"
 #endif

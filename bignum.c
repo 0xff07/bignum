@@ -1,4 +1,5 @@
 #include "bn.h"
+#include "apm.h"
 
 #define BN_MIN_ALLOC(n, s)                                               \
     do {                                                                 \

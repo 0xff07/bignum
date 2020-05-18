@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <linux/types.h>
 
 #include "apm.h"
 

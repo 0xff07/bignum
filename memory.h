@@ -1,13 +1,9 @@
 #ifndef _MEMORY_H_
 #define _MEMORY_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-static void *(*orig_malloc)(size_t) = malloc;
-static void *(*orig_realloc)(void *, size_t) = realloc;
-static void (*orig_free)(void *) = free;
+#include <linux/printk.h>
+#include <linux/string.h>
+#include <linux/slab.h>
 
 /* TODO: implement custom memory allocator which fits arbitrary precision
  * operations
@@ -15,8 +11,8 @@ static void (*orig_free)(void *) = free;
 static inline void *xmalloc(size_t size)
 {
     void *p;
-    if (!(p = (*orig_malloc)(size))) {
-        fprintf(stderr, "Out of memory.\n");
+    if (!(p = kzalloc(size, GFP_KERNEL))) {
+        printk("Out of memory.\n");
         return NULL;
     }
     return p;
@@ -25,8 +21,8 @@ static inline void *xmalloc(size_t size)
 static inline void *xrealloc(void *ptr, size_t size)
 {
     void *p;
-    if (!(p = (*orig_realloc)(ptr, size)) && size != 0) {
-        fprintf(stderr, "Out of memory.\n");
+    if (!(p = krealloc(ptr, size, GFP_KERNEL)) && size != 0) {
+        printk("Out of memory.\n");
         return NULL;
     }
     return p;
@@ -34,7 +30,7 @@ static inline void *xrealloc(void *ptr, size_t size)
 
 static inline void xfree(void *ptr)
 {
-    (*orig_free)(ptr);
+    kfree(ptr);
 }
 
 #define MALLOC(n) xmalloc(n)
